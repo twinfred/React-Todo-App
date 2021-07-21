@@ -1,0 +1,13 @@
+@import './../../theme/colors.scss';
+@import './../../theme/typography.scss';
+
+.header {
+  background-color: $primaryDark;
+  color: $white;
+  padding: 14px,
+}
+
+.header__main {
+  margin: 0;
+  font-size: $h1;
+}

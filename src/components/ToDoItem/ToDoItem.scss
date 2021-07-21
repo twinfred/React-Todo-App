@@ -1,0 +1,36 @@
+@import '../../theme/colors.scss';
+
+label {
+  cursor: pointer;
+}
+
+.todo-item {
+  background-color: $todo;
+  padding: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+
+  &.overdue {
+    background-color: $overdue;
+  }
+
+  &.complete {
+    background-color: $complete;
+  }
+}
+
+.todo-item__checkbox {
+  margin-right: 10px;
+}
+
+.todo-item__description,
+.todo-item__date {
+  margin: 0;
+}
+
+.todo-item__date {
+  margin-left: auto;
+  border: 1px solid #000000;
+  padding: 3px;
+}
