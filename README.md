@@ -13,6 +13,8 @@ Each of the above sections are also sorted by due date (oldest due date at the t
 
 In order to properly run this project, first navigate the the root folder and run `npm install`.
 
+Next, create a `config.js` file in the `src` folder and add an export for the `SECRET_API_KEY`. (This will require you to get access to the `SECRET_API_KEY` from the repo owner)
+
 ## Run the App
 
 `npm start` will run the app in the development mode at [http://localhost:3000](http://localhost:3000).
