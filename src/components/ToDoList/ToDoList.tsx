@@ -24,26 +24,30 @@ const isOverdue = (date: string | undefined, isComplete: boolean): boolean => {
 }
 
 const sortTasks = (tasks: iTasks): iTasks => {
-  const sortByDueDate = (a: iTask, b: iTask): number => {
-    if (a.dueDate && b.dueDate) return Date.parse(a.dueDate) - Date.parse(b.dueDate);
-    if (a.dueDate) return -1;
-    if (b.dueDate) return 1;
-    return 0;
-  }
+  let sortedTasks = tasks.reduce((accumulator: iTasks[], currentValue: iTask) => {
+    const isTaskOverdue = isOverdue(currentValue.dueDate, currentValue.isComplete);
 
-  const overdueTasks = tasks.filter(task => {
-    return isOverdue(task.dueDate, task.isComplete);
-  }).sort((a, b) => sortByDueDate(a, b));
+    if (isTaskOverdue) {
+      accumulator[0].push(currentValue);
+    } else if (!currentValue.isComplete && !isTaskOverdue) {
+      accumulator[1].push(currentValue);
+    } else {
+      accumulator[2].push(currentValue);
+    }
 
-  const toDoTasks = tasks.filter(task => {
-    return !task.isComplete && !isOverdue(task.dueDate, task.isComplete);
-  }).sort((a, b) => sortByDueDate(a, b));
+    return accumulator;
+  }, [[], [], []]);
 
-  const completedTasks = tasks.filter(task => {
-    return task.isComplete;
-  }).sort((a, b) => sortByDueDate(a, b));
+  const sortByDueDate = (tasks: iTasks): iTasks => {
+    return tasks.sort((a, b) => {
+      if (a.dueDate && b.dueDate) return Date.parse(a.dueDate) - Date.parse(b.dueDate);
+      if (a.dueDate) return -1;
+      if (b.dueDate) return 1;
+      return 0;
+    });
+  };
 
-  return [...overdueTasks, ...toDoTasks, ...completedTasks];
+  return [...sortByDueDate(sortedTasks[0]), ...sortByDueDate(sortedTasks[1]), ...sortByDueDate(sortedTasks[2])];
 };
 
 function ToDoList() {
